@@ -1,9 +1,8 @@
 import React from "react";
 import "./App.css";
-import ProductsList from "./features/products/view/ProductsList";
+import ProductsView from "./features/products/view/ProductsView";
 
 function App() {
-  return <ProductsList />;
+  return <ProductsView />;
 }
-
 export default App;

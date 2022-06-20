@@ -22,6 +22,11 @@ const productsInitialState = {
     isFetching: false,
     error: null,
   },
+  product: {
+    data: null,
+    isFetching: false,
+    error: null,
+  },
   filters: {
     page: 1,
     pageSize: 5,
@@ -36,6 +41,18 @@ export const fetchProducts = createAsyncThunk(
       await fetch(
         `https://reqres.in/api/products?page=${page}&per_page=${[pageSize]}`
       )
+    ).json();
+
+    console.log(response);
+
+    return response;
+  }
+);
+export const fetchProduct = createAsyncThunk(
+  "products/fetchProduct",
+  async id => {
+    const response = await (
+      await fetch(`https://reqres.in/api/products?id=${id}`)
     ).json();
 
     console.log(response);
@@ -92,6 +109,16 @@ export const productsSlice = createSlice({
       })
       .addCase(fetchProducts.rejected, state => {
         state.productsList.error = true;
+      })
+      .addCase(fetchProduct.pending, state => {
+        state.product.isFetching = true;
+      })
+      .addCase(fetchProduct.fulfilled, (state, action) => {
+        state.productsList.data = [action.payload.data];
+        state.product.isFetching = false;
+      })
+      .addCase(fetchProduct.rejected, state => {
+        state.product.error = true;
       });
     //   .addCase(fetchPokemons.pending, state => {
     //     state.listOfAllPokemons.isFetching = true;
@@ -147,5 +174,5 @@ export const productsSlice = createSlice({
 // export const selectPokemonFilters = state => state.pokemons.filters;
 export const selectProducts = state => state.products.productsList.data;
 export const selectFilters = state => state.products.filters;
-
+export const selectProductError = state => state.products.error
 export default productsSlice.reducer;
