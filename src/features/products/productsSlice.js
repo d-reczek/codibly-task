@@ -1,22 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 const productsInitialState = {
-  //   listOfAllPokemons: {
-  //     data: null,
-  //     isFetching: true,
-  //     error: null,
-  //   },
-  //   singlePokemon: {
-  //     pokemon: null,
-  //     isFetching: false,
-  //     error: null,
-  //   },
-  //   pokemonVisibilty: false,
-  //   filters: {
-  //     offset: 20,
-  //     pageSize: 20,
-  //   },
-  //
   productsList: {
     data: null,
     isFetching: false,
@@ -60,46 +44,14 @@ export const fetchProduct = createAsyncThunk(
     return response;
   }
 );
-// export const fetchPokemon = createAsyncThunk(
-//   "pokemons/fetchPokemon",
-//   async pokemonName => {
-//     const response = await (
-//       await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemonName}`)
-//     ).json();
-
-//     console.log(response);
-
-//     return response;
-//   }
-// );
 
 export const productsSlice = createSlice({
   name: "products",
   initialState: productsInitialState,
   reducers: {
-    // togglePokemonVisibility: state => {
-    //   state.pokemonVisibilty = !state.pokemonVisibilty;
-    // },
-    // resetPokemonVisibility: state => {
-    //   state.pokemonVisibilty = false;
-    // },
     updatePage: (state, action) => {
-      // if (state.filters.page === 1) {
-      //   alert("That was the first page ");
-      //   state.filters.page = state.filters.page + 1;
-      // } else if (state.filters.page === 3) {
-      //   state.filters.page = 3;
-
-      //   alert("That was the last page ");
-      // } else {
-      //   state.filters.page = action.payload;
-      // }
-
       state.filters.page = action.payload;
     },
-    // updatePageSize: (state, action) => {
-    //   state.filters.pageSize = action.payload;
-    // },
   },
 
   extraReducers: builder => {
@@ -124,51 +76,11 @@ export const productsSlice = createSlice({
       .addCase(fetchProduct.rejected, state => {
         state.product.error = true;
       });
-    //   .addCase(fetchPokemons.pending, state => {
-    //     state.listOfAllPokemons.isFetching = true;
-    //   })
-    //   .addCase(fetchPokemon.pending, state => {
-    //     state.singlePokemon.isFetching = true;
-    //   })
-
-    //   .addCase(fetchPokemons.fulfilled, (state, action) => {
-    //     state.listOfAllPokemons.isFetching = false;
-    //     state.listOfAllPokemons.data = action.payload.results;
-    //   })
-    //   .addCase(fetchPokemon.fulfilled, (state, action) => {
-    //     state.singlePokemon.isFetching = false;
-    //     state.singlePokemon.pokemon = action.payload;
-    //   })
-
-    //   .addCase(fetchPokemons.rejected, (state, action) => {
-    //     state.listOfAllPokemons.error = "wystapil błąd";
-    //     state.listOfAllPokemons.isFetching = false;
-    //   })
-    //   .addCase(fetchPokemon.rejected, (state, action) => {
-    //     state.singlePokemon.error = "wystapil błąd";
-    //     state.singlePokemon.isFetching = false;
-    //   });
   },
 });
 
 export const { updatePage } = productsSlice.actions;
-// export const selectPokemonsFetching = state =>
-//   state.pokemons.listOfAllPokemons.isFetching;
-// export const selectPokemonsError = state =>
-//   state.pokemons.listOfAllPokemons.error;
-// export const selectListOfAllPokemons = state =>
-//   state.pokemons.listOfAllPokemons.data;
-// export const selectSinglePokemon = state =>
-//   state.pokemons.singlePokemon.pokemon;
-// export const selectSinglePokemonFetching = state =>
-//   state.pokemons.singlePokemon.isFetching;
-// export const selectSinglePokemonError = state =>
-//   state.pokemons.singlePokemon.error;
 
-// export const selectTogglePokemonVisibility = state =>
-//   state.pokemons.pokemonVisibilty;
-
-// export const selectPokemonFilters = state => state.pokemons.filters;
 export const selectProducts = state => state.products.productsList.data;
 export const selectFilters = state => state.products.filters;
 export const selectProductError = state => state.products.error;

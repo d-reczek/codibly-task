@@ -5,23 +5,11 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
-import { useSelector } from "react-redux";
-import { selectProductError } from "../../../productsSlice";
 
 const ProductsTable = ({ products }) => {
-  const noProductId = useSelector(selectProductError);
-  console.log("prd", products);
-
-  Array.isArray(products) &&
-    products.map(product => {
-      if (product === undefined) {
-        return <div>didapdapdapdapdp</div>;
-      }
-    });
-
   return (
     <>
-      <TableContainer sx={{ width: "80%", m: "10px auto" }} component={Paper}>
+      <TableContainer sx={{ width: "20%", m: "10px auto" }} component={Paper}>
         <Table>
           <TableHead>
             <TableRow>
