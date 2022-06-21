@@ -12,6 +12,7 @@ import {
 } from "../../../productsSlice";
 import CircularProgress from "@mui/material/CircularProgress";
 import BoxContainer from "../BoxContainer";
+import { Grow } from "@mui/material";
 
 const ProductsTable = ({ products }) => {
   const productsIsFetching = useSelector(selectProductsIsFetching);
@@ -50,16 +51,17 @@ const ProductsTable = ({ products }) => {
                     </TableCell>
                   </TableRow>
                 ) : (
-                  <TableRow
-                    key={product.id}
-                    sx={{
-                      "&:last-child td, &:last-child th": { border: 0 },
-                      backgroundColor: `${product.color}`,
-                    }}>
-                    <TableCell align="left">{product.id}</TableCell>
-                    <TableCell align="center">{product.name}</TableCell>
-                    <TableCell align="center">{product.year}</TableCell>
-                  </TableRow>
+                  <Grow key={product.id} in timeout={500}>
+                    <TableRow
+                      sx={{
+                        "&:last-child td, &:last-child th": { border: 0 },
+                        backgroundColor: `${product.color}`,
+                      }}>
+                      <TableCell align="left">{product.id}</TableCell>
+                      <TableCell align="center">{product.name}</TableCell>
+                      <TableCell align="center">{product.year}</TableCell>
+                    </TableRow>
+                  </Grow>
                 )
               )}
           </TableBody>

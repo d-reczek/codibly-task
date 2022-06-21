@@ -6,9 +6,6 @@ const productsInitialState = {
     isFetching: false,
     error: null,
   },
-  product: {
-    data: null,
-  },
   filters: {
     page: 1,
     pageSize: 5,
@@ -25,7 +22,6 @@ export const fetchProducts = createAsyncThunk(
       )
     ).json();
 
-
     return response;
   }
 );
@@ -35,7 +31,6 @@ export const fetchProduct = createAsyncThunk(
     const response = await (
       await fetch(`https://reqres.in/api/products?id=${id}`)
     ).json();
-
 
     return response;
   }
