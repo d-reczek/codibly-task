@@ -14,6 +14,8 @@ import { Typography } from "@mui/material";
 const PageWrapper = styled.div`
   display: flex;
   flex-direction: column;
+  height: 75vh;
+  justify-content: space-between;
 `;
 const ButtonContainer = styled.div`
   display: flex;
@@ -32,6 +34,8 @@ const ProductsView = () => {
   return (
     <PageWrapper>
       <SearchBar />
+
+      <ProductsTable products={products} />
       <ButtonContainer>
         <ChangePageButton
           type="back"
@@ -57,8 +61,6 @@ const ProductsView = () => {
           handleOnClick={() => dispatch(updatePage(page === 3 ? 3 : page + 1))}
         />
       </ButtonContainer>
-
-      <ProductsTable products={products} />
     </PageWrapper>
   );
 };

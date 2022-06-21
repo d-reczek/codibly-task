@@ -16,7 +16,6 @@ import BoxContainer from "../BoxContainer";
 const ProductsTable = ({ products }) => {
   const productsIsFetching = useSelector(selectProductsIsFetching);
   const productsError = useSelector(selectProductsError);
-  console.log("prd", productsIsFetching);
   if (productsIsFetching) {
     return (
       <BoxContainer>
@@ -30,7 +29,7 @@ const ProductsTable = ({ products }) => {
   }
   return (
     <>
-      <TableContainer sx={{ width: "220px", m: "10px auto" }} component={Paper}>
+      <TableContainer sx={{ width: "250px", m: "10px auto" }} component={Paper}>
         <Table>
           <TableHead>
             <TableRow>

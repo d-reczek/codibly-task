@@ -25,7 +25,6 @@ export const fetchProducts = createAsyncThunk(
       )
     ).json();
 
-    console.log(response);
 
     return response;
   }
@@ -37,7 +36,6 @@ export const fetchProduct = createAsyncThunk(
       await fetch(`https://reqres.in/api/products?id=${id}`)
     ).json();
 
-    console.log(response);
 
     return response;
   }
