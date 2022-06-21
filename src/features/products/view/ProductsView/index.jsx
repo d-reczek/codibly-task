@@ -14,7 +14,7 @@ import { Slide, Typography } from "@mui/material";
 const PageWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  height: 75vh;
+  height: 600px;
   justify-content: space-between;
 `;
 const ButtonContainer = styled.div`
