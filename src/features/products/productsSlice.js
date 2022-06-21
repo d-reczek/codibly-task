@@ -8,8 +8,6 @@ const productsInitialState = {
   },
   product: {
     data: null,
-    isFetching: false,
-    error: null,
   },
   filters: {
     page: 1,
@@ -64,17 +62,19 @@ export const productsSlice = createSlice({
         state.productsList.isFetching = false;
       })
       .addCase(fetchProducts.rejected, state => {
+        state.productsList.isFetching = false;
         state.productsList.error = true;
       })
       .addCase(fetchProduct.pending, state => {
-        state.product.isFetching = true;
+        state.productsList.isFetching = true;
       })
       .addCase(fetchProduct.fulfilled, (state, action) => {
         state.productsList.data = [action.payload.data];
-        state.product.isFetching = false;
+        state.productsList.isFetching = false;
       })
       .addCase(fetchProduct.rejected, state => {
-        state.product.error = true;
+        state.productsList.error = true;
+        state.productsList.isFetching = false;
       });
   },
 });
@@ -83,5 +83,7 @@ export const { updatePage } = productsSlice.actions;
 
 export const selectProducts = state => state.products.productsList.data;
 export const selectFilters = state => state.products.filters;
-export const selectProductError = state => state.products.error;
+export const selectProductsIsFetching = state =>
+  state.products.productsList.isFetching;
+export const selectProductsError = state => state.products.productsList.error;
 export default productsSlice.reducer;

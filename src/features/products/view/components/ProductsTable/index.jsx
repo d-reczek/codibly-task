@@ -5,11 +5,32 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
+import { useSelector } from "react-redux";
+import {
+  selectProductsError,
+  selectProductsIsFetching,
+} from "../../../productsSlice";
+import CircularProgress from "@mui/material/CircularProgress";
+import BoxContainer from "../BoxContainer";
 
 const ProductsTable = ({ products }) => {
+  const productsIsFetching = useSelector(selectProductsIsFetching);
+  const productsError = useSelector(selectProductsError);
+  console.log("prd", productsIsFetching);
+  if (productsIsFetching) {
+    return (
+      <BoxContainer>
+        <CircularProgress />
+      </BoxContainer>
+    );
+  }
+
+  if (productsError) {
+    return <BoxContainer>Error</BoxContainer>;
+  }
   return (
     <>
-      <TableContainer sx={{ width: "20%", m: "10px auto" }} component={Paper}>
+      <TableContainer sx={{ width: "220px", m: "10px auto" }} component={Paper}>
         <Table>
           <TableHead>
             <TableRow>

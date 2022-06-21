@@ -36,7 +36,7 @@ const ProductsView = () => {
         <ChangePageButton
           type="back"
           name="prev"
-          handleOnClick={() => dispatch(updatePage(page - 1))}
+          handleOnClick={() => dispatch(updatePage(page === 1 ? 1 : page - 1))}
         />
         <Typography
           sx={{
@@ -54,7 +54,7 @@ const ProductsView = () => {
         <ChangePageButton
           type="forward"
           name="next"
-          handleOnClick={() => dispatch(updatePage(page + 1))}
+          handleOnClick={() => dispatch(updatePage(page === 3 ? 3 : page + 1))}
         />
       </ButtonContainer>
 
