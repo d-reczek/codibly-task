@@ -21,7 +21,7 @@ export const fetchProducts = createAsyncThunk(
         `https://reqres.in/api/products?page=${page}&per_page=${[pageSize]}`
       )
     ).json();
-
+    console.log(response);
     return response;
   }
 );

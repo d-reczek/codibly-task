@@ -17,6 +17,10 @@ import { Grow } from "@mui/material";
 const ProductsTable = ({ products }) => {
   const productsIsFetching = useSelector(selectProductsIsFetching);
   const productsError = useSelector(selectProductsError);
+
+  const handleClick = () => {
+    console.log("dzilaaa");
+  };
   if (productsIsFetching) {
     return (
       <BoxContainer>
@@ -39,7 +43,8 @@ const ProductsTable = ({ products }) => {
               <TableCell align="center">Year</TableCell>
             </TableRow>
           </TableHead>
-          <TableBody>
+
+          <TableBody onClick={handleClick}>
             {Array.isArray(products) &&
               products.map(product =>
                 product === undefined ? (
