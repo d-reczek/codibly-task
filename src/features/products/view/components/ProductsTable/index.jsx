@@ -12,7 +12,7 @@ import {
 } from "../../../productsSlice";
 import CircularProgress from "@mui/material/CircularProgress";
 import BoxContainer from "../BoxContainer";
-import {  Grow } from "@mui/material";
+import { Grow } from "@mui/material";
 import ProductModal from "../ProductModal";
 import { useState } from "react";
 
@@ -20,10 +20,9 @@ const ProductsTable = ({ products }) => {
   const productsIsFetching = useSelector(selectProductsIsFetching);
   const productsError = useSelector(selectProductsError);
   const [open, setOpen] = useState(false);
-  const [id, setId] = useState(null);
-  const handleOpen = id => {
-    console.log(id);
-    setId(id);
+  const [product, setProduct] = useState(null);
+  const handleOpen = product => {
+    setProduct(product);
     setOpen(true);
   };
   const handleClose = () => setOpen(false);
@@ -39,6 +38,19 @@ const ProductsTable = ({ products }) => {
   if (productsError) {
     return <BoxContainer>Error</BoxContainer>;
   }
+  if (open) {
+    return (
+      <ProductModal
+        id={product.id}
+        name={product.name}
+        year={product.year}
+        color={product.color}
+        open={open}
+        handleClose={handleClose}
+      />
+    );
+  }
+
   return (
     <>
       <TableContainer sx={{ width: "250px", m: "10px auto" }} component={Paper}>
@@ -55,7 +67,7 @@ const ProductsTable = ({ products }) => {
             {Array.isArray(products) &&
               products.map(product =>
                 product === undefined ? (
-                  <TableRow>
+                  <TableRow key={"modal"}>
                     <TableCell
                       sx={{ position: "relative", left: "25%" }}
                       align="center">
@@ -63,32 +75,19 @@ const ProductsTable = ({ products }) => {
                     </TableCell>
                   </TableRow>
                 ) : (
-                  <>
-                    {product.id === id ? (
-                      <ProductModal
-                        id={product.id}
-                        name={product.name}
-                        year={product.year}
-                        color={product.color}
-                        open={open}
-                        handleClose={handleClose}
-                      />
-                    ) : undefined}
-
-                    <Grow key={product.id} in timeout={500}>
-                      <TableRow
-                        onClick={() => handleOpen(product.id)}
-                        sx={{
-                          "&:last-child td, &:last-child th": { border: 0 },
-                          backgroundColor: `${product.color}`,
-                          cursor: "pointer",
-                        }}>
-                        <TableCell align="left">{product.id}</TableCell>
-                        <TableCell align="center">{product.name}</TableCell>
-                        <TableCell align="center">{product.year}</TableCell>
-                      </TableRow>
-                    </Grow>
-                  </>
+                  <Grow key={product.id} in timeout={500}>
+                    <TableRow
+                      onClick={() => handleOpen(product)}
+                      sx={{
+                        "&:last-child td, &:last-child th": { border: 0 },
+                        backgroundColor: `${product.color}`,
+                        cursor: "pointer",
+                      }}>
+                      <TableCell align="left">{product.id}</TableCell>
+                      <TableCell align="center">{product.name}</TableCell>
+                      <TableCell align="center">{product.year}</TableCell>
+                    </TableRow>
+                  </Grow>
                 )
               )}
           </TableBody>
