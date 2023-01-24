@@ -12,15 +12,22 @@ import {
 } from "../../../productsSlice";
 import CircularProgress from "@mui/material/CircularProgress";
 import BoxContainer from "../BoxContainer";
-import { Grow } from "@mui/material";
+import {  Grow } from "@mui/material";
+import ProductModal from "../ProductModal";
+import { useState } from "react";
 
 const ProductsTable = ({ products }) => {
   const productsIsFetching = useSelector(selectProductsIsFetching);
   const productsError = useSelector(selectProductsError);
-
-  const handleClick = () => {
-    console.log("dzilaaa");
+  const [open, setOpen] = useState(false);
+  const [id, setId] = useState(null);
+  const handleOpen = id => {
+    console.log(id);
+    setId(id);
+    setOpen(true);
   };
+  const handleClose = () => setOpen(false);
+
   if (productsIsFetching) {
     return (
       <BoxContainer>
@@ -44,7 +51,7 @@ const ProductsTable = ({ products }) => {
             </TableRow>
           </TableHead>
 
-          <TableBody onClick={handleClick}>
+          <TableBody>
             {Array.isArray(products) &&
               products.map(product =>
                 product === undefined ? (
@@ -56,17 +63,32 @@ const ProductsTable = ({ products }) => {
                     </TableCell>
                   </TableRow>
                 ) : (
-                  <Grow key={product.id} in timeout={500}>
-                    <TableRow
-                      sx={{
-                        "&:last-child td, &:last-child th": { border: 0 },
-                        backgroundColor: `${product.color}`,
-                      }}>
-                      <TableCell align="left">{product.id}</TableCell>
-                      <TableCell align="center">{product.name}</TableCell>
-                      <TableCell align="center">{product.year}</TableCell>
-                    </TableRow>
-                  </Grow>
+                  <>
+                    {product.id === id ? (
+                      <ProductModal
+                        id={product.id}
+                        name={product.name}
+                        year={product.year}
+                        color={product.color}
+                        open={open}
+                        handleClose={handleClose}
+                      />
+                    ) : undefined}
+
+                    <Grow key={product.id} in timeout={500}>
+                      <TableRow
+                        onClick={() => handleOpen(product.id)}
+                        sx={{
+                          "&:last-child td, &:last-child th": { border: 0 },
+                          backgroundColor: `${product.color}`,
+                          cursor: "pointer",
+                        }}>
+                        <TableCell align="left">{product.id}</TableCell>
+                        <TableCell align="center">{product.name}</TableCell>
+                        <TableCell align="center">{product.year}</TableCell>
+                      </TableRow>
+                    </Grow>
+                  </>
                 )
               )}
           </TableBody>

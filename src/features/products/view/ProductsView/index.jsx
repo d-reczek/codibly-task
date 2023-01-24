@@ -34,7 +34,6 @@ const ProductsView = () => {
   return (
     <PageWrapper>
       <SearchBar />
-
       <ProductsTable products={products} />
       <Slide direction="up" in timeout={500}>
         <ButtonContainer>
